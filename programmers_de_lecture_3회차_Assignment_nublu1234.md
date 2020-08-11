@@ -89,8 +89,8 @@ SELECT month_,
        channelname AS channel, 
        COUNT(DISTINCT userid) AS uniqueUsers,
        COUNT(DISTINCT (CASE WHEN refunded IS NOT NULL THEN userid END)) AS paidUsers,
-       COUNT(DISTINCT (CASE WHEN refunded IS NOT NULL THEN userid END))/
-       (CASE WHEN COUNT(DISTINCT userid) = 0 THEN 1 ELSE COUNT(DISTINCT userid) END) AS conversionRate,
+	   COUNT(DISTINCT (CASE WHEN refunded IS NOT NULL THEN userid END))::float/
+       (CASE WHEN COUNT(DISTINCT userid) = 0 THEN 1 ELSE COUNT(DISTINCT userid) END)::float AS conversionRate,
        SUM(amount) AS grossRevenue,
        SUM(CASE WHEN refunded = False THEN amount ELSE NULL END) AS netRevenue
 FROM full_table
